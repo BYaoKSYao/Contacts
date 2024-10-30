@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/index.css" />
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app" class="score-case">
+    <div class="table">
+      <table>
+        <thead>
+          <tr>
+            <th>编号</th>
+            <th>姓名</th>
+            <th>年龄</th>
+            <th>电话</th>
+            <th>删除</th>
+            <th>修改</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(item,index) in list" :key="item.ID">
+            <td>{{index+1}}</td>
+            <td>{{item.name}}</td>
+            <td>{{item.age}}</td>
+            <td>{{item.phone}}</td>
+            <td><a href="#" v-on:click="data_deletes(item.ID)">删除</a></td>
+            <td><a href="#" v-on:click="data_patch(item.ID)">修改</a></td>
+          </tr>
+        </tbody>
+
+        <tfoot>
+          <tr>
+            <td colspan="6">
+              <span>共 {{list.length}} 个联系人</span>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+    <div class="form">
+      <div class="form-item">
+        <div class="label">姓名：</div>
+        <div class="input">
+          <input type="text" placeholder="请输入姓名" v-model.trim="name" />
+        </div>
+      </div>
+      <div class="form-item">
+        <div class="label">年龄：</div>
+        <div class="input">
+          <input type="text" placeholder="请输入年龄" v-model.trim="age" />
+        </div>
+      </div>
+      <div class="form-item">
+        <div class="label">电话：</div>
+        <div class="input">
+          <input type="text" placeholder="请输入电话" v-model.trim="phone" />
+        </div>
+      </div>
+
+      <div class="form-item" v-show="state===1" :class="{avail:available}">
+        <div class="label"></div>
+        <div class="input">
+          <button class="submit" v-on:click="data_upload()">添加</button>
+        </div>
+      </div>
+      <div class="form-item" v-show="state===0" :class="{avail:available}">
+        <div class="label"></div>
+        <div class="input">
+          <button class="submit" v-on:click="submit_patch ()">修改</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="./script.js"></script>
+
+</body>
+
+</html>
